@@ -1,44 +1,16 @@
-import {
-  IsString,
-  MinLength,
-  MaxLength,
-  IsArray,
-  IsNumber,
-} from 'class-validator';
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-export class InsertWorkoutDto {
-  @IsString()
-  @MinLength(1)
-  title: string;
+import { WorkoutSchema } from './workout.model';
+import { WorkoutsController } from './workouts.controller';
+import { WorkoutsService } from './workouts.service';
 
-  @IsNumber()
-  @MinLength(1)
-  duration: number;
-
-  @IsNumber()
-  @MinLength(1)
-  calories: number;
-
-  @IsString()
-  user: string;
-}
-
-export class UpdateWorkoutDto {
-  @IsString()
-  @MinLength(1)
-  title?: string;
-
-  @IsNumber()
-  @MinLength(1)
-  duration?: number;
-
-  @IsNumber()
-  @MinLength(1)
-  calories?: number;
-
-  @IsArray()
-  likes?: [];
-
-  @IsString()
-  user: string;
-}
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: 'Workouts', schema: WorkoutSchema }]),
+  ],
+  controllers: [WorkoutsController],
+  providers: [WorkoutsService],
+  exports: [WorkoutsService],
+})
+export class WorkoutsModule {}

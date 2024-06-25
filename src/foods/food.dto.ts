@@ -1,13 +1,9 @@
 import { IsString, MinLength, IsArray, IsNumber } from 'class-validator';
 
-export class InsertWorkoutDto {
+export class InsertFoodDto {
   @IsString()
   @MinLength(1)
   title: string;
-
-  @IsNumber()
-  @MinLength(1)
-  duration: number;
 
   @IsNumber()
   @MinLength(1)
@@ -17,14 +13,10 @@ export class InsertWorkoutDto {
   user: string;
 }
 
-export class UpdateWorkoutDto {
+export class UpdateFoodDto {
   @IsString()
   @MinLength(1)
   title?: string;
-
-  @IsNumber()
-  @MinLength(1)
-  duration?: number;
 
   @IsNumber()
   @MinLength(1)

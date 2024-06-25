@@ -4,14 +4,12 @@ import { Model } from 'mongoose';
 
 import { User } from './user.model';
 import { InsertUserDto, UpdateUserDto } from './user.dto';
-import { Posts } from 'src/posts/post.model';
-import { Comments } from 'src/comments/comment.model';
+import { Workouts } from 'src/workouts/workout.model';
+import { Foods } from 'src/foods/food.model';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel('User') private readonly userModel: Model<User>, // private readonly postService: PostsService,
-  ) {}
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
   async insertUser({
     username,
@@ -45,7 +43,7 @@ export class UsersService {
     try {
       const user = await this.userModel
         .findOne({ username })
-        .populate([{ path: 'posts', populate: { path: 'text' } }, 'comments']);
+        .populate(['workouts', 'foods']);
       if (user && user.username == username) {
         return user;
       } else {
@@ -70,10 +68,10 @@ export class UsersService {
     return updatedUser;
   }
 
-  async addPostToUser(userId: string, post: Posts): Promise<User> {
+  async addWorkoutToUser(userId: string, workout: Workouts): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       userId,
-      { $push: { posts: post } },
+      { $push: { workouts: workout } },
       { new: true },
     );
 
@@ -84,10 +82,10 @@ export class UsersService {
     return updatedUser;
   }
 
-  async addCommentToUser(userId: string, comment: Comments): Promise<User> {
+  async addFoodToUser(userId: string, food: Foods): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       userId,
-      { $push: { comments: comment } },
+      { $push: { foods: food } },
       { new: true },
     );
 
@@ -108,7 +106,7 @@ export class UsersService {
   private async findUser(id: string): Promise<User> {
     let user;
     try {
-      user = await this.userModel.findById(id).populate(['posts', 'comments']);
+      user = await this.userModel.findById(id).populate(['workouts', 'foods']);
     } catch (error) {
       throw new Error(error.message);
     }

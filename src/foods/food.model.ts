@@ -4,12 +4,9 @@ import { Document } from 'mongoose';
 import { User } from 'src/users/user.model';
 
 @Schema({ timestamps: true })
-export class Workouts extends Document {
+export class Foods extends Document {
   @Prop({ required: true })
   title: string;
-
-  @Prop({ required: false })
-  duration: number;
 
   @Prop({ required: false })
   calories: number;
@@ -22,4 +19,4 @@ export class Workouts extends Document {
   updatedAt?: Date;
 }
 
-export const WorkoutSchema = SchemaFactory.createForClass(Workouts);
+export const FoodSchema = SchemaFactory.createForClass(Foods);
