@@ -11,10 +11,15 @@ import {
 import { FoodsService } from './food.service';
 import { InsertFoodDto, UpdateFoodDto } from './food.dto';
 import { Foods } from './food.model';
+import { InsertCommentDto } from 'src/comments/comment.dto';
+import { CommentsService } from 'src/comments/comment.service';
 
 @Controller('foods')
 export class FoodsController {
-  constructor(private readonly foodService: FoodsService) {}
+  constructor(
+    private readonly foodService: FoodsService,
+    private readonly commentsService: CommentsService,
+  ) {}
 
   @Post()
   public async addFood(@Body() body: InsertFoodDto): Promise<string> {
@@ -25,6 +30,12 @@ export class FoodsController {
   //   public async updateFood(@Body() body: UpdateFoodDto): Promise<Foods> {
   //     return await this.foodService.updateFood(body);
   //   }
+
+  @Patch(':id')
+  public async addComment(@Body() body: InsertCommentDto): Promise<string> {
+    console.log('food controller test');
+    return await this.commentsService.insertComment(body);
+  }
 
   @Get()
   async getAllFoods(): Promise<Foods[]> {

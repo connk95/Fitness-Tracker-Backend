@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { WorkoutsModule } from './workouts/workouts.module';
 import { FoodsModule } from './foods/food.module';
 import { AuthModule } from './auth/auth.module';
+import { CommentsModule } from './comments/comment.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     WorkoutsModule,
     FoodsModule,
+    CommentsModule,
     AuthModule,
   ],
   controllers: [AppController],

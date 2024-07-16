@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { Workouts } from './workout.model';
 import { InsertWorkoutDto, UpdateWorkoutDto } from './workout.dto';
 import { UsersService } from 'src/users/users.service';
+import { Comments } from 'src/comments/comment.model';
 
 @Injectable()
 export class WorkoutsService {
@@ -14,12 +15,14 @@ export class WorkoutsService {
   ) {}
 
   async insertWorkout({
+    type,
     title,
     duration,
     calories,
     user,
   }: InsertWorkoutDto): Promise<string> {
     const newWorkout = new this.workoutModel({
+      type,
       title,
       duration,
       calories,
@@ -43,20 +46,37 @@ export class WorkoutsService {
     return await this.findWorkout(workoutId);
   }
 
-  async updateWorkout(
+  // async updateWorkout(
+  //   workoutId: string,
+  //   body?: UpdateWorkoutDto,
+  // ): Promise<Workouts> {
+  //   const updatedWorkout = await this.workoutModel.findByIdAndUpdate(
+  //     workoutId,
+  //     body,
+  //     {
+  //       new: true,
+  //     },
+  //   );
+
+  //   if (!updatedWorkout) {
+  //     throw new NotFoundException('Workout not found');
+  //   }
+
+  //   return updatedWorkout;
+  // }
+
+  async addCommentToWorkout(
     workoutId: string,
-    body?: UpdateWorkoutDto,
+    comment: Comments,
   ): Promise<Workouts> {
     const updatedWorkout = await this.workoutModel.findByIdAndUpdate(
       workoutId,
-      body,
-      {
-        new: true,
-      },
+      { $push: { comments: comment } },
+      { new: true },
     );
 
     if (!updatedWorkout) {
-      throw new NotFoundException('Workout not found');
+      throw new NotFoundException('Post not found');
     }
 
     return updatedWorkout;

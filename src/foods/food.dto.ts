@@ -1,12 +1,22 @@
-import { IsString, MinLength, IsArray, IsNumber } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  IsArray,
+  IsNumber,
+  MaxLength,
+} from 'class-validator';
+import { Comments } from 'src/comments/comment.model';
 
 export class InsertFoodDto {
+  @IsString()
+  type: string;
+
   @IsString()
   @MinLength(1)
   title: string;
 
   @IsNumber()
-  @MinLength(1)
+  @MaxLength(4)
   calories: number;
 
   @IsString()
@@ -19,11 +29,17 @@ export class UpdateFoodDto {
   title?: string;
 
   @IsNumber()
-  @MinLength(1)
+  @MaxLength(4)
   calories?: number;
 
   @IsArray()
   likes?: [];
+
+  @IsArray()
+  comments?: Comments[];
+
+  @IsString()
+  newCommentId?: string;
 
   @IsString()
   user: string;

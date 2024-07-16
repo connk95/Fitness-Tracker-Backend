@@ -5,12 +5,13 @@ import { WorkoutSchema } from './workout.model';
 import { WorkoutsController } from './workouts.controller';
 import { WorkoutsService } from './workouts.service';
 import { UsersModule } from 'src/users/users.module';
+import { CommentsModule } from 'src/comments/comment.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Workouts', schema: WorkoutSchema }]),
     forwardRef(() => UsersModule),
-    // forwardRef(() => )
+    forwardRef(() => CommentsModule),
   ],
   controllers: [WorkoutsController],
   providers: [WorkoutsService],

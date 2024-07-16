@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { Foods } from './food.model';
 import { InsertFoodDto, UpdateFoodDto } from './food.dto';
 import { UsersService } from 'src/users/users.service';
+import { Comments } from 'src/comments/comment.model';
 
 @Injectable()
 export class FoodsService {
@@ -13,8 +14,14 @@ export class FoodsService {
     private readonly userService: UsersService,
   ) {}
 
-  async insertFood({ title, calories, user }: InsertFoodDto): Promise<string> {
+  async insertFood({
+    type,
+    title,
+    calories,
+    user,
+  }: InsertFoodDto): Promise<string> {
     const newFood = new this.foodModel({
+      type,
       title,
       calories,
       user,
@@ -49,6 +56,20 @@ export class FoodsService {
     return updatedFood;
   }
 
+  async addCommentToFood(foodId: string, comment: Comments): Promise<Foods> {
+    const updatedFood = await this.foodModel.findByIdAndUpdate(
+      foodId,
+      { $push: { comments: comment } },
+      { new: true },
+    );
+
+    if (!updatedFood) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return updatedFood;
+  }
+
   async deleteFood(foodId: string) {
     const result = await this.foodModel.deleteOne({ _id: foodId }).exec();
     if (result.deletedCount === 0) {
@@ -61,8 +82,10 @@ export class FoodsService {
     try {
       food = (await this.foodModel.findById(id)).populate([
         {
-          path: 'user',
+          path: 'comments',
+          populate: { path: 'user' },
         },
+        'user',
       ]);
     } catch (error) {
       throw new Error(error.message);

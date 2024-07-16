@@ -11,10 +11,15 @@ import {
 import { WorkoutsService } from './workouts.service';
 import { InsertWorkoutDto, UpdateWorkoutDto } from './workout.dto';
 import { Workouts } from './workout.model';
+import { InsertCommentDto } from 'src/comments/comment.dto';
+import { CommentsService } from 'src/comments/comment.service';
 
 @Controller('workouts')
 export class WorkoutsController {
-  constructor(private readonly workoutService: WorkoutsService) {}
+  constructor(
+    private readonly workoutService: WorkoutsService,
+    private readonly commentsService: CommentsService,
+  ) {}
 
   @Post()
   public async addWorkout(@Body() body: InsertWorkoutDto): Promise<string> {
@@ -27,6 +32,11 @@ export class WorkoutsController {
   //   ): Promise<Workouts> {
   //     return await this.workoutService.updateWorkout(body);
   //   }
+
+  @Patch(':id')
+  public async addComment(@Body() body: InsertCommentDto): Promise<string> {
+    return await this.commentsService.insertComment(body);
+  }
 
   @Get()
   async getAllWorkouts(): Promise<Workouts[]> {

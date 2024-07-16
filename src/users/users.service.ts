@@ -6,6 +6,7 @@ import { User } from './user.model';
 import { InsertUserDto, UpdateUserDto } from './user.dto';
 import { Workouts } from 'src/workouts/workout.model';
 import { Foods } from 'src/foods/food.model';
+import { Comments } from 'src/comments/comment.model';
 
 @Injectable()
 export class UsersService {
@@ -43,7 +44,7 @@ export class UsersService {
     try {
       const user = await this.userModel
         .findOne({ username })
-        .populate(['workouts', 'foods']);
+        .populate(['workouts', 'foods', 'comments']);
       if (user && user.username == username) {
         return user;
       } else {
@@ -96,6 +97,20 @@ export class UsersService {
     return updatedUser;
   }
 
+  async addCommentToUser(userId: string, comment: Comments): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { $push: { comments: comment } },
+      { new: true },
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    return updatedUser;
+  }
+
   async deleteUser(userId: string) {
     const result = await this.userModel.deleteOne({ _id: userId }).exec();
     if (result.deletedCount === 0) {
@@ -106,7 +121,9 @@ export class UsersService {
   private async findUser(id: string): Promise<User> {
     let user;
     try {
-      user = await this.userModel.findById(id).populate(['workouts', 'foods']);
+      user = await this.userModel
+        .findById(id)
+        .populate(['workouts', 'foods', 'comments']);
     } catch (error) {
       throw new Error(error.message);
     }
