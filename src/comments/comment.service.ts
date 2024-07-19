@@ -21,11 +21,13 @@ export class CommentsService {
     text,
     activityId,
     user,
+    type,
   }: InsertCommentDto): Promise<string> {
     const newComment = new this.commentModel({
       text,
       activityId,
       user,
+      type,
     });
     const result = await newComment.save();
     if (!result) {

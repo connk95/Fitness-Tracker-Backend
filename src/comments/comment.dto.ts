@@ -11,6 +11,9 @@ export class InsertCommentDto {
 
   @IsString()
   activityId: string;
+
+  @IsString()
+  type: string;
 }
 
 export class UpdateCommentDto {
