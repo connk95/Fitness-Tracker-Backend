@@ -21,6 +21,9 @@ export class Foods extends Document {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comments' }] })
   comments?: Comments[];
 
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Likes' }] })
+  likes?: User[];
+
   createdAt?: Date;
 
   updatedAt?: Date;

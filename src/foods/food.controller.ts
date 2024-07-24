@@ -13,6 +13,7 @@ import { InsertFoodDto, UpdateFoodDto } from './food.dto';
 import { Foods } from './food.model';
 import { InsertCommentDto } from 'src/comments/comment.dto';
 import { CommentsService } from 'src/comments/comment.service';
+import { User } from 'src/users/user.model';
 
 @Controller('foods')
 export class FoodsController {
@@ -26,15 +27,23 @@ export class FoodsController {
     return await this.foodService.insertFood(body);
   }
 
-  //   @Patch(':id')
-  //   public async updateFood(@Body() body: UpdateFoodDto): Promise<Foods> {
-  //     return await this.foodService.updateFood(body);
-  //   }
+  // @Patch(':id')
+  // public async updateFood(@Body() body: UpdateFoodDto): Promise<Foods> {
+  //   return await this.foodService.updateFood(body);
+  // }
 
-  @Patch(':id')
+  @Patch(':id') //:id/comment
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
-    console.log('food controller test');
     return await this.commentsService.insertComment(body);
+  }
+
+  @Patch(':id/like')
+  public async addLike(
+    @Param('id') id: string,
+    @Body() user: User,
+  ): Promise<Foods> {
+    console.log('test like controller');
+    return await this.foodService.addLikeToFood(id, user);
   }
 
   @Get()

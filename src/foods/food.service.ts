@@ -6,6 +6,7 @@ import { Foods } from './food.model';
 import { InsertFoodDto, UpdateFoodDto } from './food.dto';
 import { UsersService } from 'src/users/users.service';
 import { Comments } from 'src/comments/comment.model';
+import { User } from 'src/users/user.model';
 
 @Injectable()
 export class FoodsService {
@@ -64,7 +65,21 @@ export class FoodsService {
     );
 
     if (!updatedFood) {
-      throw new NotFoundException('Post not found');
+      throw new NotFoundException('Activity not found');
+    }
+
+    return updatedFood;
+  }
+
+  async addLikeToFood(foodId: string, user: User): Promise<Foods> {
+    const updatedFood = await this.foodModel.findByIdAndUpdate(
+      foodId,
+      { $push: { likes: user } },
+      { new: true },
+    );
+
+    if (!updatedFood) {
+      throw new NotFoundException('Activity not found');
     }
 
     return updatedFood;
