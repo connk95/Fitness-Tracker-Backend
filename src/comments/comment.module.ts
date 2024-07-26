@@ -8,11 +8,13 @@ import { CommentSchema } from './comment.model';
 import { UsersModule } from 'src/users/users.module';
 import { WorkoutsModule } from 'src/workouts/workouts.module';
 import { FoodsModule } from 'src/foods/food.module';
+import { ActivitiesModule } from 'src/activities/activity.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Comments', schema: CommentSchema }]),
     forwardRef(() => UsersModule),
+    forwardRef(() => ActivitiesModule),
     forwardRef(() => FoodsModule),
     forwardRef(() => WorkoutsModule),
   ],

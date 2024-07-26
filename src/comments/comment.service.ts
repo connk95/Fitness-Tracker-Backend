@@ -7,6 +7,7 @@ import { InsertCommentDto, UpdateCommentDto } from './comment.dto';
 import { UsersService } from 'src/users/users.service';
 import { WorkoutsService } from 'src/workouts/workouts.service';
 import { FoodsService } from 'src/foods/food.service';
+import { ActivitiesService } from 'src/activities/activity.service';
 
 @Injectable()
 export class CommentsService {
@@ -15,6 +16,7 @@ export class CommentsService {
     private readonly userService: UsersService,
     private readonly foodsService: FoodsService,
     private readonly workoutsService: WorkoutsService,
+    private readonly activityService: ActivitiesService,
   ) {}
 
   async insertComment({
@@ -37,6 +39,7 @@ export class CommentsService {
     await this.userService.addCommentToUser(user, result);
     await this.foodsService.addCommentToFood(activityId, result);
     await this.workoutsService.addCommentToWorkout(activityId, result);
+    await this.activityService.addCommentToActivity(activityId, result);
 
     return result._id as string;
   }

@@ -2,6 +2,7 @@ import { IsString, MinLength, MaxLength, IsArray } from 'class-validator';
 import { Workouts } from 'src/workouts/workout.model';
 import { Foods } from 'src/foods/food.model';
 import { Comments } from 'src/comments/comment.model';
+import { Activities } from 'src/activities/activity.model';
 
 export class InsertUserDto {
   @IsString()
@@ -38,6 +39,9 @@ export class UpdateUserDto {
 
   @IsArray()
   foods?: Foods[];
+
+  @IsArray()
+  activities?: Activities;
 
   @IsArray()
   comments?: Comments[];

@@ -7,6 +7,7 @@ import { InsertUserDto, UpdateUserDto } from './user.dto';
 import { Workouts } from 'src/workouts/workout.model';
 import { Foods } from 'src/foods/food.model';
 import { Comments } from 'src/comments/comment.model';
+import { Activities } from 'src/activities/activity.model';
 
 @Injectable()
 export class UsersService {
@@ -44,7 +45,7 @@ export class UsersService {
     try {
       const user = await this.userModel
         .findOne({ username })
-        .populate(['workouts', 'foods', 'comments']);
+        .populate(['workouts', 'foods', 'activities', 'comments']);
       if (user && user.username == username) {
         return user;
       } else {
@@ -97,6 +98,20 @@ export class UsersService {
     return updatedUser;
   }
 
+  async addActivityToUser(userId: string, activity: Activities): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { $push: { activities: activity } },
+      { new: true },
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    return updatedUser;
+  }
+
   async addCommentToUser(userId: string, comment: Comments): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       userId,
@@ -123,7 +138,7 @@ export class UsersService {
     try {
       user = await this.userModel
         .findById(id)
-        .populate(['workouts', 'foods', 'comments']);
+        .populate(['workouts', 'foods', 'activities', 'comments']);
     } catch (error) {
       throw new Error(error.message);
     }
