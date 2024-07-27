@@ -37,7 +37,6 @@ export class CommentsController {
     @Param('id') commentId: string,
     @Body() body: UpdateCommentDto,
   ): Promise<Comments> {
-    console.log('comments controller post test');
     return await this.commentsService.updateComment(commentId, body);
   }
 

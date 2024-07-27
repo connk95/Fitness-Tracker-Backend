@@ -1,5 +1,6 @@
 import { IsString, MinLength, IsArray, IsNumber } from 'class-validator';
 import { Comments } from 'src/comments/comment.model';
+import { User } from 'src/users/user.model';
 
 export class InsertWorkoutDto {
   @IsString()
@@ -35,7 +36,7 @@ export class UpdateWorkoutDto {
   calories?: number;
 
   @IsArray()
-  likes?: [];
+  likes?: User[];
 
   @IsArray()
   comments?: Comments[];

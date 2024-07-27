@@ -31,9 +31,7 @@ export class FoodsService {
     if (!result) {
       throw new Error('Could not add food');
     }
-
     await this.userService.addFoodToUser(user, result);
-
     return result.id as string;
   }
 
@@ -53,7 +51,6 @@ export class FoodsService {
     if (!updatedFood) {
       throw new NotFoundException('Food not found');
     }
-
     return updatedFood;
   }
 
@@ -67,21 +64,23 @@ export class FoodsService {
     if (!updatedFood) {
       throw new NotFoundException('Activity not found');
     }
-
     return updatedFood;
   }
 
-  async addLikeToFood(foodId: string, user: User): Promise<Foods> {
+  async addLikeToFood(foodId: string, userId: string): Promise<Foods> {
+    console.log('test food service');
+    // console.log('user id: ', user);
+    console.log('food id: ', foodId);
     const updatedFood = await this.foodModel.findByIdAndUpdate(
       foodId,
-      { $push: { likes: user } },
+      { $addToSet: { likes: userId } },
       { new: true },
     );
 
     if (!updatedFood) {
       throw new NotFoundException('Activity not found');
     }
-
+    console.log('updatedFood: ', updatedFood);
     return updatedFood;
   }
 

@@ -82,6 +82,19 @@ export class WorkoutsService {
     return updatedWorkout;
   }
 
+  async addLikeToWorkout(workoutId: string, userId: string): Promise<Workouts> {
+    const updatedWorkout = await this.workoutModel.findByIdAndUpdate(
+      workoutId,
+      { $addToSet: { likes: userId } },
+      { new: true },
+    );
+
+    if (!updatedWorkout) {
+      throw new NotFoundException('Activity not found');
+    }
+    return updatedWorkout;
+  }
+
   async deleteWorkout(workoutId: string) {
     const result = await this.workoutModel.deleteOne({ _id: workoutId }).exec();
     if (result.deletedCount === 0) {

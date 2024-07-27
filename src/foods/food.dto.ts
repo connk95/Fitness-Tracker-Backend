@@ -6,6 +6,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { Comments } from 'src/comments/comment.model';
+import { User } from 'src/users/user.model';
 
 export class InsertFoodDto {
   @IsString()
@@ -33,7 +34,7 @@ export class UpdateFoodDto {
   calories?: number;
 
   @IsArray()
-  likes?: [];
+  likes?: User[];
 
   @IsArray()
   comments?: Comments[];

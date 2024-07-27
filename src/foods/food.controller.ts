@@ -32,7 +32,7 @@ export class FoodsController {
   //   return await this.foodService.updateFood(body);
   // }
 
-  @Patch(':id') //:id/comment
+  @Patch(':id/comment')
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
     return await this.commentsService.insertComment(body);
   }
@@ -40,10 +40,11 @@ export class FoodsController {
   @Patch(':id/like')
   public async addLike(
     @Param('id') id: string,
-    @Body() user: User,
+    @Body() body: { user: { _id: string } },
   ): Promise<Foods> {
     console.log('test like controller');
-    return await this.foodService.addLikeToFood(id, user);
+    const userId = body.user._id;
+    return await this.foodService.addLikeToFood(id, userId);
   }
 
   @Get()

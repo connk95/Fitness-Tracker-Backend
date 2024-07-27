@@ -38,6 +38,15 @@ export class WorkoutsController {
     return await this.commentsService.insertComment(body);
   }
 
+  @Patch(':id/like')
+  public async addLike(
+    @Param('id') id: string,
+    @Body() body: { user: { _id: string } },
+  ): Promise<Workouts> {
+    const userId = body.user._id;
+    return await this.workoutService.addLikeToWorkout(id, userId);
+  }
+
   @Get()
   async getAllWorkouts(): Promise<Workouts[]> {
     return await this.workoutService.getWorkouts();
