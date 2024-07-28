@@ -19,6 +19,9 @@ export class User extends Document {
   @Prop()
   likes?: [];
 
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  friends?: User[];
+
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foods' }] })
   foods?: Foods[];
 

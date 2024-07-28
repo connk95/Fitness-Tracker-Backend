@@ -111,6 +111,21 @@ export class UsersService {
     return updatedUser;
   }
 
+  async addFriendToUser(friendId: string, userId: string): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { $addToSet: { friends: friendId } },
+      { new: true },
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException('Activity not found');
+    }
+    console.log('test friend service: ', updatedUser);
+
+    return updatedUser;
+  }
+
   async deleteUser(userId: string) {
     const result = await this.userModel.deleteOne({ _id: userId }).exec();
     if (result.deletedCount === 0) {
