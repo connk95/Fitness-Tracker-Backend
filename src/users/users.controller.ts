@@ -50,12 +50,12 @@ export class UsersController {
   @Patch(':id/friends')
   public async addFriend(
     @Param('id') userId: string,
-    @Body() body: { user: { _id: string } },
+    @Body() body: { friend: User },
   ): Promise<User> {
-    const friendId = body.user._id;
-    console.log('test controller id: ', friendId);
+    const friend = body.friend;
+    console.log('test controller id: ', friend);
     console.log('test friend controller');
-    return await this.usersService.addFriendToUser(userId, friendId);
+    return await this.usersService.addFriendToUser(userId, friend);
   }
 
   @Delete(':id')

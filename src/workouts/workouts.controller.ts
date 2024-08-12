@@ -13,6 +13,7 @@ import { InsertWorkoutDto, UpdateWorkoutDto } from './workout.dto';
 import { Workouts } from './workout.model';
 import { InsertCommentDto } from 'src/comments/comment.dto';
 import { CommentsService } from 'src/comments/comment.service';
+import { User } from 'src/users/user.model';
 
 @Controller('workouts')
 export class WorkoutsController {
@@ -41,10 +42,10 @@ export class WorkoutsController {
   @Patch(':id/like')
   public async addLike(
     @Param('id') id: string,
-    @Body() body: { user: { _id: string } },
+    @Body() body: { user: User },
   ): Promise<Workouts> {
-    const userId = body.user._id;
-    return await this.workoutService.addLikeToWorkout(id, userId);
+    const user = body.user;
+    return await this.workoutService.addLikeToWorkout(id, user);
   }
 
   @Get()

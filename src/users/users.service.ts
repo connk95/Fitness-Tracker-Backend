@@ -111,10 +111,10 @@ export class UsersService {
     return updatedUser;
   }
 
-  async addFriendToUser(friendId: string, userId: string): Promise<User> {
+  async addFriendToUser(userId: string, friend: User): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       userId,
-      { $addToSet: { friends: friendId } },
+      { $addToSet: { friends: friend } },
       { new: true },
     );
 
@@ -138,7 +138,7 @@ export class UsersService {
     try {
       user = await this.userModel
         .findById(id)
-        .populate(['workouts', 'foods', 'comments']);
+        .populate(['workouts', 'foods', 'comments', 'friends']);
     } catch (error) {
       throw new Error(error.message);
     }

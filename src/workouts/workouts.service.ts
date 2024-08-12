@@ -6,6 +6,7 @@ import { Workouts } from './workout.model';
 import { InsertWorkoutDto, UpdateWorkoutDto } from './workout.dto';
 import { UsersService } from 'src/users/users.service';
 import { Comments } from 'src/comments/comment.model';
+import { User } from 'src/users/user.model';
 
 @Injectable()
 export class WorkoutsService {
@@ -82,10 +83,10 @@ export class WorkoutsService {
     return updatedWorkout;
   }
 
-  async addLikeToWorkout(workoutId: string, userId: string): Promise<Workouts> {
+  async addLikeToWorkout(workoutId: string, user: User): Promise<Workouts> {
     const updatedWorkout = await this.workoutModel.findByIdAndUpdate(
       workoutId,
-      { $addToSet: { likes: userId } },
+      { $addToSet: { likes: user } },
       { new: true },
     );
 

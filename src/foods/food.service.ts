@@ -67,13 +67,10 @@ export class FoodsService {
     return updatedFood;
   }
 
-  async addLikeToFood(foodId: string, userId: string): Promise<Foods> {
-    console.log('test food service');
-    // console.log('user id: ', user);
-    console.log('food id: ', foodId);
+  async addLikeToFood(foodId: string, user: User): Promise<Foods> {
     const updatedFood = await this.foodModel.findByIdAndUpdate(
       foodId,
-      { $addToSet: { likes: userId } },
+      { $addToSet: { likes: user } },
       { new: true },
     );
 

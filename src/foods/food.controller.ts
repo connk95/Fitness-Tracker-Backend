@@ -40,11 +40,11 @@ export class FoodsController {
   @Patch(':id/like')
   public async addLike(
     @Param('id') id: string,
-    @Body() body: { user: { _id: string } },
+    @Body() body: { user: User },
   ): Promise<Foods> {
     console.log('test like controller');
-    const userId = body.user._id;
-    return await this.foodService.addLikeToFood(id, userId);
+    const user = body.user;
+    return await this.foodService.addLikeToFood(id, user);
   }
 
   @Get()
