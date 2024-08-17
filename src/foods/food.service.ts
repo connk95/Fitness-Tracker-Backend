@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
 import { Foods } from './food.model';
 import { InsertFoodDto, UpdateFoodDto } from './food.dto';
 import { UsersService } from 'src/users/users.service';

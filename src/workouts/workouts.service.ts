@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Workouts } from './workout.model';
-import { InsertWorkoutDto, UpdateWorkoutDto } from './workout.dto';
+import { InsertWorkoutDto } from './workout.dto';
 import { UsersService } from 'src/users/users.service';
 import { Comments } from 'src/comments/comment.model';
 import { User } from 'src/users/user.model';
@@ -46,25 +46,6 @@ export class WorkoutsService {
   async getSingleWorkout(workoutId: string): Promise<Workouts> {
     return await this.findWorkout(workoutId);
   }
-
-  // async updateWorkout(
-  //   workoutId: string,
-  //   body?: UpdateWorkoutDto,
-  // ): Promise<Workouts> {
-  //   const updatedWorkout = await this.workoutModel.findByIdAndUpdate(
-  //     workoutId,
-  //     body,
-  //     {
-  //       new: true,
-  //     },
-  //   );
-
-  //   if (!updatedWorkout) {
-  //     throw new NotFoundException('Workout not found');
-  //   }
-
-  //   return updatedWorkout;
-  // }
 
   async addCommentToWorkout(
     workoutId: string,

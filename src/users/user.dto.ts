@@ -17,9 +17,6 @@ export class InsertUserDto {
 
   @IsString()
   email: string;
-
-  @IsArray()
-  likes?: [];
 }
 
 export class UpdateUserDto {
@@ -32,7 +29,7 @@ export class UpdateUserDto {
   email?: string;
 
   @IsArray()
-  likes?: [];
+  likes?: User[];
 
   @IsArray()
   friends?: User[];
