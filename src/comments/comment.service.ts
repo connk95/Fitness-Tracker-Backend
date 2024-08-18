@@ -35,8 +35,14 @@ export class CommentsService {
     }
 
     await this.userService.addCommentToUser(user, result);
-    await this.foodsService.addCommentToFood(activityId, result);
-    await this.workoutsService.addCommentToWorkout(activityId, result);
+
+    if (type === 'foods') {
+      await this.foodsService.addCommentToFood(activityId, result);
+    } else if (type === 'workouts') {
+      await this.workoutsService.addCommentToWorkout(activityId, result);
+    } else {
+      throw Error;
+    }
 
     return result._id as string;
   }

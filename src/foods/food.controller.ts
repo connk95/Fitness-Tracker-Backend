@@ -42,7 +42,6 @@ export class FoodsController {
     @Param('id') id: string,
     @Body() body: { user: User },
   ): Promise<Foods> {
-    console.log('test like controller');
     const user = body.user;
     return await this.foodService.addLikeToFood(id, user);
   }

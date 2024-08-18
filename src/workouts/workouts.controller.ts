@@ -34,7 +34,7 @@ export class WorkoutsController {
   //     return await this.workoutService.updateWorkout(body);
   //   }
 
-  @Patch(':id')
+  @Patch(':id/comment')
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
     return await this.commentsService.insertComment(body);
   }

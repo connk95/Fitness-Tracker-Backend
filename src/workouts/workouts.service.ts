@@ -89,8 +89,10 @@ export class WorkoutsService {
     try {
       workout = (await this.workoutModel.findById(id)).populate([
         {
-          path: 'user',
+          path: 'comments',
+          populate: { path: 'user' },
         },
+        'user',
       ]);
     } catch (error) {
       throw new Error(error.message);
