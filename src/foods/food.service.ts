@@ -67,16 +67,13 @@ export class FoodsService {
   }
 
   async addLikeToFood(foodId: string, user: User): Promise<Foods> {
-    const updatedFood = await this.foodModel.findByIdAndUpdate(
-      foodId,
-      { $addToSet: { likes: user } },
-      { new: true },
-    );
+    const updatedFood = await this.foodModel
+      .findByIdAndUpdate(foodId, { $addToSet: { likes: user } }, { new: true })
+      .populate('user');
 
     if (!updatedFood) {
       throw new NotFoundException('Activity not found');
     }
-    console.log('updatedFood: ', updatedFood);
     return updatedFood;
   }
 
@@ -93,7 +90,7 @@ export class FoodsService {
       food = (await this.foodModel.findById(id)).populate([
         {
           path: 'comments',
-          populate: { path: 'user' },
+          populate: 'user',
         },
         'user',
       ]);
