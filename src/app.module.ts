@@ -8,6 +8,7 @@ import { WorkoutsModule } from './workouts/workouts.module';
 import { FoodsModule } from './foods/food.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comment.module';
+import { DataModule } from './data/data.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CommentsModule } from './comments/comment.module';
     FoodsModule,
     CommentsModule,
     AuthModule,
+    DataModule,
   ],
   controllers: [AppController],
   providers: [AppService],
