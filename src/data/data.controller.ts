@@ -7,9 +7,10 @@ export class DataController {
 
   @Get('paginated')
   async getPaginatedData(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Query('filter') filter: string,
   ) {
-    return this.dataService.getPaginatedData(page, limit);
+    return this.dataService.getPaginatedData(page, limit, filter);
   }
 }
