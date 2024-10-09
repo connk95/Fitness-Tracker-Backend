@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { User } from './user.model';
 import { InsertUserDto, UpdateUserDto } from './user.dto';
 import { Workouts } from 'src/workouts/workout.model';
+import { Activity } from 'src/activity/activity.model';
 import { Foods } from 'src/foods/food.model';
 import { Comments } from 'src/comments/comment.model';
 
@@ -73,6 +74,20 @@ export class UsersService {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       userId,
       { $push: { workouts: workout } },
+      { new: true },
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    return updatedUser;
+  }
+
+  async addActivityToUser(userId: string, activity: Activity): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { $push: { activities: activity } },
       { new: true },
     );
 
