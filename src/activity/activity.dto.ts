@@ -4,14 +4,11 @@ import { User } from 'src/users/user.model';
 
 export class InsertActivityDto {
   @IsString()
-  type: string;
-
-  @IsString()
   @MinLength(1)
   title: string;
 
   @IsNumber()
-  duration: number;
+  duration?: number;
 
   @IsNumber()
   @MinLength(1)
@@ -19,6 +16,9 @@ export class InsertActivityDto {
 
   @IsString()
   user: string;
+
+  @IsString()
+  type: string;
 }
 
 export class UpdateActivityDto {

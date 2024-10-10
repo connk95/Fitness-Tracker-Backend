@@ -11,7 +11,7 @@ import { User } from 'src/users/user.model';
 @Injectable()
 export class ActivityService {
   constructor(
-    @InjectModel('Activity') private readonly activityModel: Model<Activity>,
+    @InjectModel('Activities') private readonly activityModel: Model<Activity>,
     private readonly userService: UsersService,
   ) {}
 
