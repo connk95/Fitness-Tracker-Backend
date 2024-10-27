@@ -53,8 +53,6 @@ export class UsersController {
     @Body() body: { friend: User },
   ): Promise<User> {
     const friend = body.friend;
-    console.log('test controller id: ', friend);
-    console.log('test friend controller');
     return await this.usersService.addFriendToUser(userId, friend);
   }
 

@@ -1,47 +1,47 @@
-import {
-  IsString,
-  MinLength,
-  IsArray,
-  IsNumber,
-  MaxLength,
-} from 'class-validator';
-import { Comments } from 'src/comments/comment.model';
-import { User } from 'src/users/user.model';
+// import {
+//   IsString,
+//   MinLength,
+//   IsArray,
+//   IsNumber,
+//   MaxLength,
+// } from 'class-validator';
+// import { Comments } from 'src/comments/comment.model';
+// import { User } from 'src/users/user.model';
 
-export class InsertFoodDto {
-  @IsString()
-  type: string;
+// export class InsertFoodDto {
+//   @IsString()
+//   type: string;
 
-  @IsString()
-  @MinLength(1)
-  title: string;
+//   @IsString()
+//   @MinLength(1)
+//   title: string;
 
-  @IsNumber()
-  @MaxLength(4)
-  calories: number;
+//   @IsNumber()
+//   @MaxLength(4)
+//   calories: number;
 
-  @IsString()
-  user: string;
-}
+//   @IsString()
+//   user: string;
+// }
 
-export class UpdateFoodDto {
-  @IsString()
-  @MinLength(1)
-  title?: string;
+// export class UpdateFoodDto {
+//   @IsString()
+//   @MinLength(1)
+//   title?: string;
 
-  @IsNumber()
-  @MaxLength(4)
-  calories?: number;
+//   @IsNumber()
+//   @MaxLength(4)
+//   calories?: number;
 
-  @IsArray()
-  likes?: User[];
+//   @IsArray()
+//   likes?: User[];
 
-  @IsArray()
-  comments?: Comments[];
+//   @IsArray()
+//   comments?: Comments[];
 
-  @IsString()
-  newCommentId?: string;
+//   @IsString()
+//   newCommentId?: string;
 
-  @IsString()
-  user: string;
-}
+//   @IsString()
+//   user: string;
+// }

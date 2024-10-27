@@ -24,16 +24,8 @@ export class ActivityController {
 
   @Post()
   public async addActivity(@Body() body: InsertActivityDto): Promise<string> {
-    console.log('test');
     return await this.activityService.insertActivity(body);
   }
-
-  //   @Patch(':id')
-  //   public async updateWorkout(
-  //     @Body() body: UpdateWorkoutDto,
-  //   ): Promise<Workouts> {
-  //     return await this.workoutService.updateWorkout(body);
-  //   }
 
   @Patch(':id/comment')
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {

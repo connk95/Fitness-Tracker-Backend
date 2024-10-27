@@ -5,29 +5,25 @@ import { Model } from 'mongoose';
 import { Comments } from './comment.model';
 import { InsertCommentDto, UpdateCommentDto } from './comment.dto';
 import { UsersService } from 'src/users/users.service';
-import { WorkoutsService } from 'src/workouts/workouts.service';
-import { FoodsService } from 'src/foods/food.service';
+import { ActivityService } from 'src/activity/activity.service';
 
 @Injectable()
 export class CommentsService {
   constructor(
     @InjectModel('Comments') private readonly commentModel: Model<Comments>,
     private readonly userService: UsersService,
-    private readonly foodsService: FoodsService,
-    private readonly workoutsService: WorkoutsService,
+    private readonly activityService: ActivityService,
   ) {}
 
   async insertComment({
     text,
     activityId,
     user,
-    type,
   }: InsertCommentDto): Promise<string> {
     const newComment = new this.commentModel({
       text,
       activityId,
       user,
-      type,
     });
     const result = await newComment.save();
     if (!result) {
@@ -36,13 +32,7 @@ export class CommentsService {
 
     await this.userService.addCommentToUser(user, result);
 
-    if (type === 'foods') {
-      await this.foodsService.addCommentToFood(activityId, result);
-    } else if (type === 'workouts') {
-      await this.workoutsService.addCommentToWorkout(activityId, result);
-    } else {
-      throw Error;
-    }
+    await this.activityService.addCommentToActivity(activityId, result);
 
     return result._id as string;
   }
