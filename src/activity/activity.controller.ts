@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { ActivityService } from './activity.service';
@@ -41,14 +42,18 @@ export class ActivityController {
     return await this.activityService.addLikeToActivity(id, user);
   }
 
-  @Get()
-  async getAllActivities(): Promise<Activity[]> {
-    return await this.activityService.getActivities();
-  }
-
   @Get(':id')
   async getActivity(@Param('id') id: string): Promise<Activity> {
     return await this.activityService.getSingleActivity(id);
+  }
+
+  @Get()
+  async getPaginatedActivities(
+    @Query('type') type: 'all' | 'workout' | 'food' = 'all',
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 12,
+  ) {
+    return this.activityService.getPaginatedActivities(type, page, limit);
   }
 
   @Delete(':id')

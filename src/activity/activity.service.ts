@@ -39,12 +39,43 @@ export class ActivityService {
     return result.id as string;
   }
 
-  public async getActivities(): Promise<Activity[]> {
-    return await this.activityModel.find().populate('user').exec();
-  }
-
   async getSingleActivity(activityId: string): Promise<Activity> {
     return await this.findActivity(activityId);
+  }
+
+  async getPaginatedActivities(
+    type: 'all' | 'workout' | 'food',
+    page: number = 1,
+    limit: number = 12,
+  ): Promise<{
+    total: number;
+    page: number;
+    pages: number;
+    activities: Activity[];
+  }> {
+    const filter: any = {};
+
+    if (type !== 'all') {
+      filter.type = type;
+    }
+
+    const skip = (page - 1) * limit;
+    const activities = await this.activityModel
+      .find(filter)
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .populate('user')
+      .exec();
+
+    const total = await this.activityModel.countDocuments(filter);
+
+    return {
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+      activities,
+    };
   }
 
   async addCommentToActivity(

@@ -8,7 +8,7 @@ import { UsersModule } from './users/users.module';
 // import { FoodsModule } from './foods/food.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comment.module';
-import { DataModule } from './services/data.module';
+// import { DataModule } from './services/data.module';
 import { ActivityModule } from './activity/activity.module';
 
 @Module({
@@ -21,7 +21,7 @@ import { ActivityModule } from './activity/activity.module';
     // FoodsModule,
     CommentsModule,
     AuthModule,
-    DataModule,
+    // DataModule,
   ],
   controllers: [AppController],
   providers: [AppService],
