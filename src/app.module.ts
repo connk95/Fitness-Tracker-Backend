@@ -15,12 +15,12 @@ import { ActivityModule } from './activity/activity.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URL),
+    AuthModule,
     UsersModule,
     ActivityModule,
     // WorkoutsModule,
     // FoodsModule,
     CommentsModule,
-    AuthModule,
     // DataModule,
   ],
   controllers: [AppController],
