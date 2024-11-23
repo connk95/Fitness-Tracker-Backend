@@ -12,6 +12,22 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization',
   });
 
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header(
+      'Access-Control-Allow-Methods',
+      'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    );
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+
+    next();
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
