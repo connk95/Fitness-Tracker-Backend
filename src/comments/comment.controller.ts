@@ -18,7 +18,6 @@ export class CommentsController {
 
   @Post()
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
-    console.log('comments controller post test');
     return await this.commentsService.insertComment(body);
   }
 

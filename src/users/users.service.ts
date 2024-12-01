@@ -82,9 +82,9 @@ export class UsersService {
     return updatedUser;
   }
 
-  async addCommentToUser(userId: string, comment: Comments): Promise<User> {
+  async addCommentToUser(user: User, comment: Comments): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
-      userId,
+      user,
       { $push: { comments: comment } },
       { new: true },
     );
@@ -106,7 +106,6 @@ export class UsersService {
     if (!updatedUser) {
       throw new NotFoundException('Activity not found');
     }
-    console.log('test friend service: ', updatedUser);
 
     return updatedUser;
   }

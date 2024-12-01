@@ -1,4 +1,11 @@
-import { IsString, MinLength, MaxLength, IsArray } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  MaxLength,
+  IsArray,
+  IsObject,
+} from 'class-validator';
+import { User } from 'src/users/user.model';
 
 export class InsertCommentDto {
   @IsString()
@@ -6,11 +13,14 @@ export class InsertCommentDto {
   @MaxLength(220)
   text: string;
 
-  @IsString()
-  user: string;
+  // @IsString()
+  // user: string;
 
   @IsString()
   activityId: string;
+
+  @IsObject()
+  user: User;
 }
 
 export class UpdateCommentDto {

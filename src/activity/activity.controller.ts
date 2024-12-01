@@ -29,7 +29,6 @@ export class ActivityController {
 
   @Patch(':id/comment')
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
-    console.log('test insertComment');
     return await this.commentsService.insertComment(body);
   }
 
