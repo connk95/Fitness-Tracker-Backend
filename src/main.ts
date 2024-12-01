@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
+// import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,7 +13,7 @@ async function bootstrap() {
     origin: ['http://localhost:5173', process.env.NETLIFY_URL],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    allowedHeaders: 'Content-Type, Authorization',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
   app.useGlobalPipes(
