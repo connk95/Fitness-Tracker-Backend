@@ -19,12 +19,12 @@ export class Activity extends Document {
   calories: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  user: User;
+  user: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comments' }] })
   comments?: Comments[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Likes' }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   likes?: User[];
 
   createdAt?: Date;

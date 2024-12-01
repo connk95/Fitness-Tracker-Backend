@@ -1,4 +1,10 @@
-import { IsString, MinLength, MaxLength, IsArray } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  MaxLength,
+  IsArray,
+  IsOptional,
+} from 'class-validator';
 import { Comments } from 'src/comments/comment.model';
 import { User } from './user.model';
 import { Activity } from 'src/activity/activity.model';
@@ -19,26 +25,33 @@ export class InsertUserDto {
 }
 
 export class UpdateUserDto {
+  @IsOptional()
   @IsString()
   @MinLength(6)
   @MaxLength(18)
   password?: string;
 
+  @IsOptional()
   @IsString()
   email?: string;
 
+  @IsOptional()
   @IsArray()
-  likes?: User[];
+  likes?: Activity[];
 
+  @IsOptional()
   @IsArray()
   friends?: User[];
 
+  @IsOptional()
   @IsArray()
   activities?: Activity[];
 
+  @IsOptional()
   @IsArray()
   comments?: Comments[];
 
+  @IsOptional()
   @IsString()
   newCommentId?: string;
 }

@@ -1,5 +1,4 @@
-import { Module } from '@nestjs/common';
-import { forwardRef } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { CommentsController } from './comment.controller';

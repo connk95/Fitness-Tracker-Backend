@@ -14,7 +14,6 @@ import { InsertActivityDto, UpdateActivityDto } from './activity.dto';
 import { Activity } from './activity.model';
 import { InsertCommentDto } from 'src/comments/comment.dto';
 import { CommentsService } from 'src/comments/comment.service';
-import { User } from 'src/users/user.model';
 
 @Controller('activities')
 export class ActivityController {
@@ -30,16 +29,16 @@ export class ActivityController {
 
   @Patch(':id/comment')
   public async addComment(@Body() body: InsertCommentDto): Promise<string> {
+    console.log('test insertComment');
     return await this.commentsService.insertComment(body);
   }
 
   @Patch(':id/like')
   public async addLike(
     @Param('id') id: string,
-    @Body() body: { user: User },
+    @Body() body: { userId: string },
   ): Promise<Activity> {
-    const user = body.user;
-    return await this.activityService.addLikeToActivity(id, user);
+    return await this.activityService.addLikeToActivity(id, body.userId);
   }
 
   @Get(':id')

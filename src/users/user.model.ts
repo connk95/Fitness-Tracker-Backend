@@ -4,7 +4,9 @@ import * as mongoose from 'mongoose';
 import { Comments } from 'src/comments/comment.model';
 import { Activity } from 'src/activity/activity.model';
 
-@Schema()
+export type UserDocument = mongoose.HydratedDocument<User>;
+
+@Schema({ timestamps: true })
 export class User extends Document {
   @Prop({ required: true, unique: true })
   username: string;
@@ -15,8 +17,8 @@ export class User extends Document {
   @Prop({ required: true })
   email: string;
 
-  @Prop()
-  likes?: [];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activities' }] })
+  likes?: Activity[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   friends?: User[];

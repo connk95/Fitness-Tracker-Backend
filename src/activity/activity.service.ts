@@ -6,7 +6,6 @@ import { Activity } from './activity.model';
 import { InsertActivityDto } from './activity.dto';
 import { UsersService } from 'src/users/users.service';
 import { Comments } from 'src/comments/comment.model';
-import { User } from 'src/users/user.model';
 
 @Injectable()
 export class ActivityService {
@@ -95,10 +94,13 @@ export class ActivityService {
     return updatedActivity;
   }
 
-  async addLikeToActivity(activityId: string, user: User): Promise<Activity> {
+  async addLikeToActivity(
+    activityId: string,
+    userId: string,
+  ): Promise<Activity> {
     const updatedActivity = await this.activityModel.findByIdAndUpdate(
       activityId,
-      { $addToSet: { likes: user } },
+      { $addToSet: { likes: userId } },
       { new: true },
     );
 
@@ -126,6 +128,7 @@ export class ActivityService {
           populate: { path: 'user' },
         },
         'user',
+        'likes',
       ]);
     } catch (error) {
       throw new Error(error.message);

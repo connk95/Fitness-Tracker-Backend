@@ -4,9 +4,7 @@ import { Model } from 'mongoose';
 
 import { User } from './user.model';
 import { InsertUserDto, UpdateUserDto } from './user.dto';
-// import { Workouts } from 'src/workouts/workout.model';
 import { Activity } from 'src/activity/activity.model';
-// import { Foods } from 'src/foods/food.model';
 import { Comments } from 'src/comments/comment.model';
 
 @Injectable()
@@ -70,23 +68,9 @@ export class UsersService {
     return updatedUser;
   }
 
-  // async addWorkoutToUser(userId: string, workout: Workouts): Promise<User> {
-  //   const updatedUser = await this.userModel.findByIdAndUpdate(
-  //     userId,
-  //     { $push: { workouts: workout } },
-  //     { new: true },
-  //   );
-
-  //   if (!updatedUser) {
-  //     throw new NotFoundException('User not found');
-  //   }
-
-  //   return updatedUser;
-  // }
-
-  async addActivityToUser(userId: string, activity: Activity): Promise<User> {
+  async addActivityToUser(user: User, activity: Activity): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
-      userId,
+      user.id,
       { $push: { activities: activity } },
       { new: true },
     );
@@ -97,20 +81,6 @@ export class UsersService {
 
     return updatedUser;
   }
-
-  // async addFoodToUser(userId: string, food: Foods): Promise<User> {
-  //   const updatedUser = await this.userModel.findByIdAndUpdate(
-  //     userId,
-  //     { $push: { foods: food } },
-  //     { new: true },
-  //   );
-
-  //   if (!updatedUser) {
-  //     throw new NotFoundException('User not found');
-  //   }
-
-  //   return updatedUser;
-  // }
 
   async addCommentToUser(userId: string, comment: Comments): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(

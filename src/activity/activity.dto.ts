@@ -1,4 +1,12 @@
-import { IsString, MinLength, IsArray, IsNumber } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  IsArray,
+  IsNumber,
+  Min,
+  IsOptional,
+  IsObject,
+} from 'class-validator';
 import { Comments } from 'src/comments/comment.model';
 import { User } from 'src/users/user.model';
 
@@ -7,42 +15,50 @@ export class InsertActivityDto {
   @MinLength(1)
   title: string;
 
+  @IsOptional()
   @IsNumber()
-  duration?: number;
+  @Min(0)
+  duration?: number | null;
 
   @IsNumber()
-  @MinLength(1)
+  @Min(0)
   calories: number;
 
-  @IsString()
-  user: string;
+  @IsObject()
+  user: User;
 
   @IsString()
   type: string;
 }
 
 export class UpdateActivityDto {
+  @IsOptional()
   @IsString()
   @MinLength(1)
   title?: string;
 
+  @IsOptional()
   @IsNumber()
-  @MinLength(1)
+  @Min(0)
   duration?: number;
 
+  @IsOptional()
   @IsNumber()
-  @MinLength(1)
+  @Min(0)
   calories?: number;
 
+  @IsOptional()
   @IsArray()
   likes?: User[];
 
+  @IsOptional()
   @IsArray()
   comments?: Comments[];
 
+  @IsOptional()
   @IsString()
   newCommentId?: string;
 
-  @IsString()
-  user: string;
+  @IsObject()
+  user: User;
 }
