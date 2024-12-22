@@ -117,7 +117,7 @@ export class UsersService {
     }
   }
 
-  private async findUser(id: string): Promise<User> {
+  async findUser(id: string): Promise<User> {
     let user;
     try {
       user = await this.userModel

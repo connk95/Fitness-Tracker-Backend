@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common';
 
 import { ActivityService } from './activity.service';
-import { InsertActivityDto, UpdateActivityDto } from './activity.dto';
+import { InsertActivityDto } from './activity.dto';
 import { Activity } from './activity.model';
 import { InsertCommentDto } from 'src/comments/comment.dto';
 import { CommentsService } from 'src/comments/comment.service';
+import { User } from 'src/users/user.model';
 
 @Controller('activities')
 export class ActivityController {
@@ -35,9 +36,9 @@ export class ActivityController {
   @Patch(':id/like')
   public async addLike(
     @Param('id') id: string,
-    @Body() body: { userId: string },
+    @Body() body: { user: User },
   ): Promise<Activity> {
-    return await this.activityService.addLikeToActivity(id, body.userId);
+    return await this.activityService.addLikeToActivity(id, body.user);
   }
 
   @Get(':id')
@@ -47,11 +48,17 @@ export class ActivityController {
 
   @Get()
   async getPaginatedActivities(
-    @Query('type') type: 'all' | 'workout' | 'food' = 'all',
+    @Query('type') type: 'all' | 'workout' | 'food' | 'friends' = 'all',
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 12,
+    @Query('friends') friends: string[],
   ) {
-    return this.activityService.getPaginatedActivities(type, page, limit);
+    return this.activityService.getPaginatedActivities(
+      type,
+      page,
+      limit,
+      friends,
+    );
   }
 
   @Delete(':id')

@@ -6,6 +6,7 @@ import { Activity } from './activity.model';
 import { InsertActivityDto } from './activity.dto';
 import { UsersService } from 'src/users/users.service';
 import { Comments } from 'src/comments/comment.model';
+import { User } from 'src/users/user.model';
 
 @Injectable()
 export class ActivityService {
@@ -43,9 +44,10 @@ export class ActivityService {
   }
 
   async getPaginatedActivities(
-    type: 'all' | 'workout' | 'food',
+    type: 'all' | 'workout' | 'food' | 'friends',
     page: number = 1,
     limit: number = 12,
+    friends: string[],
   ): Promise<{
     total: number;
     page: number;
@@ -54,8 +56,20 @@ export class ActivityService {
   }> {
     const filter: any = {};
 
-    if (type !== 'all') {
+    if (type !== 'all' && type !== 'friends') {
       filter.type = type;
+    }
+
+    if (type === 'friends') {
+      if (!friends || friends.length === 0) {
+        return {
+          total: 0,
+          page,
+          pages: 0,
+          activities: [],
+        };
+      }
+      filter.user = { $in: friends };
     }
 
     const skip = (page - 1) * limit;
@@ -94,15 +108,15 @@ export class ActivityService {
     return updatedActivity;
   }
 
-  async addLikeToActivity(
-    activityId: string,
-    userId: string,
-  ): Promise<Activity> {
-    const updatedActivity = await this.activityModel.findByIdAndUpdate(
-      activityId,
-      { $addToSet: { likes: userId } },
-      { new: true },
-    );
+  async addLikeToActivity(activityId: string, user: User): Promise<Activity> {
+    const updatedActivity = await this.activityModel
+      .findByIdAndUpdate(
+        activityId,
+        { $addToSet: { likes: user.id } },
+        { new: true },
+      )
+      .populate('user')
+      .populate('likes');
 
     if (!updatedActivity) {
       throw new NotFoundException('Activity not found');
