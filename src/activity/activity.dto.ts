@@ -6,6 +6,7 @@ import {
   Min,
   IsOptional,
   IsObject,
+  Max,
 } from 'class-validator';
 import { Comments } from 'src/comments/comment.model';
 import { User } from 'src/users/user.model';
@@ -18,11 +19,14 @@ export class InsertActivityDto {
   @IsOptional()
   @IsNumber()
   @Min(0)
+  @Max(9999)
   duration?: number | null;
 
+  @IsOptional()
   @IsNumber()
   @Min(0)
-  calories: number;
+  @Max(9999)
+  calories: number | null;
 
   @IsObject()
   user: User;
