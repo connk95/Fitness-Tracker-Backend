@@ -1,74 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Fitness Tracker Project (Backend)(WIP)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Welcome to my fitness tracker app! This project aims to create a fitness tracker social network where users can post their meals and workouts, add friends, like and leave comments to posts, and track their daily calories. The inspiration for this project came from an acquaintance who mentioned that she messages her group chat whenever she does a dowkout or eats out so that her friends can keep her on track with her diet. The backend of this project was made using Typescript, Node.js, Mongoose, and Nest.js. This backend connects to the frontend [here](https://github.com/connk95/Fitness-Tracker), made using Typescript, React, and RTK. This backend is deployed using Render.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Features](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#features)
+- [Installation](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#installation)
+- [Code Description](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#code-description)
+- [Contributing](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#contributing)
+- [License](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#license)
+- [Acknowledgements](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/README.md#acknowledgements)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
+
+- Handles requests from the frontend to create or retrieve user, post, and message data.
+- Implements Passport strategies for authentication.
+- Connects the Fitness Tracker app to MongoDB.
 
 ## Installation
 
-```bash
-$ npm install
-```
+1. Clone this repository using the following command:
 
-## Running the app
+   ```
+   git clone https://github.com/connk95/Fitness-Tracker-Backend.git
+   ```
 
-```bash
-# development
-$ npm run start
+2. Navigate to the project directory:
 
-# watch mode
-$ npm run start:dev
+   ```
+   cd Fitness-Tracker-Backend
+   ```
 
-# production mode
-$ npm run start:prod
-```
+3. Run the app and view in your browser (You must run the frontend to make use of this app!)
+   ```
+   npm run start
+   ```
 
-## Test
+## Code Description
 
-```bash
-# unit tests
-$ npm run test
+[Auth](https://github.com/connk95/Fitness-Tracker-Backend/tree/main/src/auth) - Contains the [Auth Controller](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/auth/auth.controller.ts) which handles post and get requests from the frontend for logging in, logging out, and retrieving profile data. [Auth Service](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/auth/auth.service.ts) contains logic for validating user credentials, and retrieving data from the database.
 
-# e2e tests
-$ npm run test:e2e
+[Comments](https://github.com/connk95/Fitness-Tracker-Backend/tree/main/src/comments) - Contains the [Comments Controller](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/comments/comment.controller.ts) which handles post and get requests from the frontend for creating and retrieving comments. [Comments Service](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/comments/comment.service.ts) contains logic for attributing a comment to its respective parent post, and its user, as well as retrieving comment data from the database.
 
-# test coverage
-$ npm run test:cov
-```
+[Activities](https://github.com/connk95/Fitness-Tracker-Backend/tree/main/src/activity) - Contains the [Activity Controller](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/activity/activity.controller.ts) which handles post and get requests from the frontend for creating and retrieving activities, including foods and workouts. [Activity Service](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/activity/activity.service.ts) contains logic for creating activities and attributing it to the user, retrieving single or multiple activities, and attributing comments to the parent activity.
 
-## Support
+[Users](https://github.com/connk95/Fitness-Tracker-Backend/tree/main/src/users) - Contains the [Users Controller](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/users/users.controller.ts) which handles post and get requests from the frontend for creating and retrieving users. [Users Service](https://github.com/connk95/Fitness-Tracker-Backend/blob/main/src/users/users.service.ts) contains logic for creating users, retrieving single or multiple users, and attributing activities or comments to the user.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Contributing
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Contributions to this project are welcome! If you find any bugs or have ideas for improvements, please feel free to open an issue or submit a pull request.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
-# Fitness-Tracker-Backend
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+- This project was created by Connor Ketcheson.
+
+Enjoy your fitness app experience! If you have any questions or feedback, please don't hesitate to contact me.
+
+---
