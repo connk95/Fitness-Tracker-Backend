@@ -25,6 +25,7 @@ export class ActivityController {
 
   @Post()
   public async addActivity(@Body() body: InsertActivityDto): Promise<string> {
+    console.log('test activity');
     return await this.activityService.insertActivity(body);
   }
 

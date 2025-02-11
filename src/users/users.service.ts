@@ -70,8 +70,8 @@ export class UsersService {
 
   async addActivityToUser(user: User, activity: Activity): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
-      user.id,
-      { $push: { activities: activity } },
+      user._id,
+      { $addToSet: { activities: activity } },
       { new: true },
     );
 
