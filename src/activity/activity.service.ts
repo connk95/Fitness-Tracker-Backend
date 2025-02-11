@@ -112,7 +112,7 @@ export class ActivityService {
     const updatedActivity = await this.activityModel
       .findByIdAndUpdate(
         activityId,
-        { $addToSet: { likes: user.id } },
+        { $addToSet: { likes: user._id } },
         { new: true },
       )
       .populate('user')
